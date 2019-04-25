@@ -4,7 +4,7 @@ In his [article](https://www.kdnuggets.com/2017/04/machine-learning-fake-news-ac
 
 ## The Original Experiment
 
-In the original experiment McIntire constructed a Naive Bayes classifier to classify the articles in his dataset as "Real" or "Fake" news. As published on GitHub the McIntire's "fake news" [dataset](https://github.com/GeorgeMcIntire/fake_real_news_dataset) has 6335 news articles of which 3171 articles are "real news" and 3164 articles are "fake news". The dataset is well balanced with respect to the two classes. 
+In the original experiment McIntire constructed a Naive Bayes classifier to classify the articles in his dataset as "Real" or "Fake" news. As published on GitHub the McIntire's "fake news" [dataset](https://github.com/GeorgeMcIntire/fake_real_news_dataset) has 6335 news articles of which 3171 articles are "real news" and 3164 articles are "fake news". The dataset is well balanced with respect to the two classes.
 
 > Note: The dataset as published contains a few more articles but the 'text' field for those articles is empty.  These articles were removed for the analysis here.
 
@@ -21,27 +21,30 @@ This very much validates the results that McIntire reports.  Details of my recre
 ## Beyond the Document Vector Model
 
  In the [document vector model](https://en.wikipedia.org/wiki/Vector_space_model) of a collection of documents each word that appears in the collection is defined as a dimension in the corresponding vector model.  Consider the following figure,
- 
- ![](https://ahmedbesbes.com/images/article_5/tfidf.jpg)
- 
+
+<!-- ![](https://ahmedbesbes.com/images/article_5/tfidf.jpg) -->
+<img src="https://raw.githubusercontent.com/lutzhamel/fake-news/master/term-doc.jpg" height="300" width="400">
+
  Here each column represents the feature vector of one of the documents in the collection and the rows are the features or dimensions of the vectors. Notice that there is one feature for each word that appears in the collection of documents. The column vectors can be fed to a classification algorithm for training. Here, the fields in the matrix are the counts of how many times a word appears in a document.  However, there are many ways to encode the occurences of words in the collection within this matrix. In the binary `CountVectorizer` used in the experiment above the fields are just 0 and 1 indicating whether a particular word appears in a document or not. Perhaps the most famous encoding is [TF-IDF](https://en.wikipedia.org/wiki/Tf–idf), short for term frequency–inverse document frequency.
- 
+
  The vector representation of documents has two important consequences for document classification problems: The order and contexts of words are lost and semantic similarities between words cannot be represented.  To see the importance of semantic similarity consider one document that discusses dogs and another document that discusses puppies. From a vector model perspective the feature set for these two documents will not intersect in terms of the notion of dog because the vector model simply considers dogs and puppies to be two different features and the similarity of these documents will not be apparent to a machine learning algorithm. To see the importance of the word context consider these [two sentences](https://jair.org/index.php/jair/article/view/11030): “it was not good, it was actually quite bad” and “it was not bad, it was actually quite good”.  The vector representation of these sentences is exactly the same but they obviously have very different meanings or classifications.  The vector representation of  documents is often  called the *bag of words* representation referring to the fact that it loses all order and context information.
- 
+
  Deep neural networks take a very different approach to document classification.  Firstly, words are represented as [*embedding vectors*](https://en.wikipedia.org/wiki/Word_embedding) with the idea that two words that are semantically similar to each other have similar vectors. Consider the following figure,
- 
- ![](https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png?v=1)
- 
+
+ <!-- ![](https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png?v=1) -->
+
+ <img src="https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png" height="200" width="350">
+
  This figure represents a 3D embedding space and we can see that concepts that are similar to each other are close together in this embedding space.  Therefore the similarity of our two documents talking about dogs and puppies will be recognized by a deep neural network aiding in the accuracy of a document classifier based on a DNN.
- 
+
  Secondly, in deep neural networks documents are no longer compressed into a vector representation of just word occurences.  Instead, deep neural networks process actual sequences of words (coded as a integers) as they appear in the documents thereby maintaining the order and contexts of words. Consider the following code snippet using the [Keras](https://keras.io) tokenizer applied to our two sentences from above,
  ```python
 from keras.preprocessing.text import Tokenizer
 tok = Tokenizer()
 # train tokenizer
-tok.fit_on_texts(["it was not good, it was actually quite bad"]) 
+tok.fit_on_texts(["it was not good, it was actually quite bad"])
 # print sequences
-print(tok.texts_to_sequences(["it was not good, it was actually quite bad"])[0]) 
+print(tok.texts_to_sequences(["it was not good, it was actually quite bad"])[0])
 print(tok.texts_to_sequences(["it was not bad, it was actually quite good"])[0])
  ```
  This will print out the following sequences,
@@ -66,12 +69,12 @@ model = Sequential(
     [
         # part 1: word and sequence processing
         layers.Embedding(num_words,
-                         EMBEDDING_DIM, 
+                         EMBEDDING_DIM,
                          input_length=MAX_SEQUENCE_LENGTH,
                          trainable=True),
         layers.Conv1D(128, 5, activation='relu'),
         layers.GlobalMaxPooling1D(),
-        
+
         # part 2: classification
         layers.Dense(128, activation='relu'),
         layers.Dense(1, activation='sigmoid')
@@ -81,7 +84,7 @@ model.compile(loss='binary_crossentropy',
               optimizer='rmsprop',
               metrics=['accuracy'])
 ```
-Our DNN can be broken down into two distinct parts. The first part consists of three layers and is responsible for  word and sequence processing: 
+Our DNN can be broken down into two distinct parts. The first part consists of three layers and is responsible for  word and sequence processing:
 1. The Embedding layer - learn word embeddings.
 2. The Convolution layer - learn patterns throughout the text sequences.
 3. The Pooling layer - filter out the interesting sequence patterns.
@@ -124,6 +127,3 @@ The results were quite impressive,
 > A 97% accuracy with a 95% confidence interval of [96%, 98%].
 
 The performance increase is statistically significant compared to the performance of the Naive Bayes classifier and perhaps a bit surprising given the relative simplicity of the DNN.  One conclusion that one might draw is that semantic similarity between words and word order or context are crucial for document classification.
-
-
-
