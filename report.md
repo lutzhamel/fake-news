@@ -119,7 +119,7 @@ _________________________________________________________________
 ```
 The `None` in the *Output Shape* column simply denotes the *current batch size default*. That  means the pooling layer computes a feature vector of size 128 which is passed into dense layers of the feedforward network as we mentioned above.
 
-The overall structure of the DNN can be understood as a preprocessor defined in the first part that is being trained to map text sequences into feature vectors in such a way that the weights of the second part can be trained to obtain optimal classification results from the overall network.  More details on the implementation and text preprocessing can be found in my GitHub repository for this [project](https://github.com/lutzhamel/kdnuggets-fake-news).
+The overall structure of the DNN can be understood as a preprocessor defined in the first part that is being trained to map text sequences into feature vectors in such a way that the weights of the second part can be trained to obtain optimal classification results from the overall network.  
 
 ## Results
 
