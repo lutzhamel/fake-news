@@ -23,7 +23,9 @@ This very much validates the results that McIntire reports.  Details of my recre
  In the [document vector model](https://en.wikipedia.org/wiki/Vector_space_model) of a collection of documents each word that appears in the collection is defined as a dimension in the corresponding vector model.  Consider the following figure,
 
 <!-- ![](https://ahmedbesbes.com/images/article_5/tfidf.jpg) -->
+<center>
 <img src="https://raw.githubusercontent.com/lutzhamel/fake-news/master/term-doc.jpg" height="300" width="400">
+</center>
 
  Here each column represents the feature vector of one of the documents in the collection and the rows are the features or dimensions of the vectors. Notice that there is one feature for each word that appears in the collection of documents. The column vectors can be fed to a classification algorithm for training. Here, the fields in the matrix are the counts of how many times a word appears in a document.  However, there are many ways to encode the occurences of words in the collection within this matrix. In the binary `CountVectorizer` used in the experiment above the fields are just 0 and 1 indicating whether a particular word appears in a document or not. Perhaps the most famous encoding is [TF-IDF](https://en.wikipedia.org/wiki/Tf–idf), short for term frequency–inverse document frequency.
 
@@ -33,7 +35,9 @@ This very much validates the results that McIntire reports.  Details of my recre
 
  <!-- ![](https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png?v=1) -->
 
+<center>
  <img src="https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png" height="200" width="350">
+ </center>
 
  This figure represents a 3D embedding space and we can see that concepts that are similar to each other are close together in this embedding space.  Therefore the similarity of our two documents talking about dogs and puppies will be recognized by a deep neural network aiding in the accuracy of a document classifier based on a DNN.
 
