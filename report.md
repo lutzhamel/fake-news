@@ -33,12 +33,8 @@ This very much validates the results that McIntire reports.  Details of my recre
  The vector representation of documents has two important consequences for document classification problems: The order and contexts of words are lost and semantic similarities between words cannot be represented.  To see the importance of semantic similarity consider one document that discusses dogs and another document that discusses puppies. From a vector model perspective the feature set for these two documents will not intersect in terms of the notion of dog because the vector model simply considers dogs and puppies to be two different features and the similarity of these documents will not be apparent to a machine learning algorithm. To see the importance of the word context consider these [two sentences](https://jair.org/index.php/jair/article/view/11030): “it was not good, it was actually quite bad” and “it was not bad, it was actually quite good”.  The vector representation of these sentences is exactly the same but they obviously have very different meanings or classifications.  The vector representation of  documents is often  called the *bag of words* representation referring to the fact that it loses all order and context information.
 
  Deep neural networks take a very different approach to document classification.  Firstly, words are represented as [*embedding vectors*](https://en.wikipedia.org/wiki/Word_embedding) with the idea that two words that are semantically similar to each other have similar vectors. Consider the following figure,
-
- <!-- ![](https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png?v=1) -->
-
- <img src="https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png" height="200" width="350">
  
- <img src="https://f.hypotheses.org/wp-content/blogs.dir/4190/files/2018/04/3dplot-768x586.jpg" height="200" width="350">
+ <img src="https://f.hypotheses.org/wp-content/blogs.dir/4190/files/2018/04/3dplot-768x586.jpg" height="400" width="400">
 
  This figure represents a 3D embedding space and we can see that concepts that are similar to each other are close together in this embedding space.  Therefore the similarity of our two documents talking about dogs and puppies will be recognized by a deep neural network aiding in the accuracy of a document classifier based on a DNN.
 
