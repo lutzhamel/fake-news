@@ -37,6 +37,8 @@ This very much validates the results that McIntire reports.  Details of my recre
  <!-- ![](https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png?v=1) -->
 
  <img src="https://techblog.gumgum.com/media/285/download/word_embedding-1024x587.png" height="200" width="350">
+ 
+ <img src="https://f.hypotheses.org/wp-content/blogs.dir/4190/files/2018/04/3dplot-768x586.jpg" height="200" width="350">
 
  This figure represents a 3D embedding space and we can see that concepts that are similar to each other are close together in this embedding space.  Therefore the similarity of our two documents talking about dogs and puppies will be recognized by a deep neural network aiding in the accuracy of a document classifier based on a DNN.
 
