@@ -34,7 +34,7 @@ This very much validates the results that McIntire reports.  Details of my recre
 
  Deep neural networks take a very different approach to document classification.  Firstly, words are represented as [*embedding vectors*](https://en.wikipedia.org/wiki/Word_embedding) with the idea that two words that are semantically similar to each other have similar vectors. Consider the following figure,
  
- <img src="https://f.hypotheses.org/wp-content/blogs.dir/4190/files/2018/04/3dplot-768x586.jpg" height="350" width="400">
+ <img src="https://f.hypotheses.org/wp-content/blogs.dir/4190/files/2018/04/3dplot-768x586.jpg" height="300" width="400">
 
  This figure represents a 3D embedding space and we can see that concepts that are similar to each other are close together in this embedding space.  Therefore the similarity of our two documents talking about dogs and puppies will be recognized by a deep neural network aiding in the accuracy of a document classifier based on a DNN.
 
